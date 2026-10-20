@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ตารางเวร & รายรับพยาบาล</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--bg:#f3f7f6;--card:#fff;--ink:#17323a;--mute:#6b8088;--line:#d9e3e1;--acc:#0f766e;--M:#f4c542;--A:#f08a4b;--N:#3d4f8f;--O:#d5dfdd}
+@media(prefers-color-scheme:dark){:root{--bg:#0f1b1e;--card:#16272b;--ink:#e6f0ee;--mute:#8fa8ad;--line:#27403f;--acc:#2dd4bf;--O:#2b4142}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Sarabun,system-ui,sans-serif}
+main{max-width:980px;margin:auto;padding:12px}
+h1{font-size:1.3rem;margin:8px 0}h2{font-size:1.05rem;margin:0 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:12px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.sp{justify-content:space-between}
+button,input{font:inherit;color:inherit}
+button{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 12px;cursor:pointer}
+button.p{background:var(--acc);color:#fff;border-color:var(--acc)}
+input{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 8px;width:100%}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.hd{text-align:center;color:var(--mute);font-size:.8rem}
+.d{min-height:64px;border:1px solid var(--line);border-radius:8px;padding:3px 5px;cursor:pointer;background:var(--bg);position:relative}
+.d.sel{outline:2px solid var(--acc)}.d.t{border-color:var(--acc)}
+.d small{color:var(--mute)}.sw{position:absolute;right:3px;bottom:3px;display:flex;gap:2px;flex-wrap:wrap;justify-content:flex-end}.s{min-width:20px;text-align:center;border-radius:6px;font-weight:700;padding:0 3px;font-size:.9rem}
+.s.M{background:var(--M);color:#222}.s.V{background:#8b5cf6;color:#fff}.s.A{background:var(--A);color:#222}.s.N{background:var(--N);color:#fff}.s.O{background:var(--O)}
+.ot{position:absolute;left:5px;top:24px;font-size:.72rem;color:var(--acc);font-weight:600}
+.nt{position:absolute;right:5px;top:2px;font-size:.7rem}
+.cfg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}.cfg label{font-size:.8rem;color:var(--mute)}
+.tot{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.tot div{border-left:4px solid var(--acc);padding-left:8px}.tot b{display:block;font-size:1.2rem}.tot span{font-size:.8rem;color:var(--mute)}
+.big{border-color:var(--N)!important}
+.cc{position:relative;height:260px}.two{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+@media(max-width:700px){.two{grid-template-columns:1fr}}
+#st{font-size:.85rem;color:var(--mute)}
+ 
+/* Cute pastel nurse theme */
+:root{--bg:#fff7fb;--card:#ffffff;--ink:#59485b;--mute:#9b879c;--line:#f1dce9;--acc:#d96fa4;--M:#ffe49a;--A:#ffc6a6;--N:#b8b9f6;--O:#dcefe4}
+body{background:radial-gradient(ellipse at 8% 4%,#ffe7f1 0,transparent 26%),radial-gradient(ellipse at 95% 18%,#e5f6e8 0,transparent 25%),var(--bg);color:var(--ink)}
+main{max-width:1000px;padding:18px 14px 30px}
+h1{font-size:1.45rem;color:#bd5d91;letter-spacing:.1px}
+h2{color:#b85d8f}
+.card{border:1px solid #f3d9e8;border-radius:20px;padding:16px;box-shadow:0 7px 22px #d8a9c21c}
+button{border-color:#efd5e4;border-radius:12px;background:#fffafd;transition:transform .15s,box-shadow .15s}
+button:hover{transform:translateY(-1px);box-shadow:0 4px 10px #d79ab51c}
+button.p{background:#d96fa4;border-color:#d96fa4}
+input{background:#fffafd;border-color:#efd9e8;border-radius:12px;padding:9px 10px}
+input:focus{border-color:#d96fa4}
+.grid{gap:6px}
+.hd{color:#b487a1;font-weight:700;padding:3px}
+.d{border-radius:13px;border-color:#f0dce8;background:#fffafd;min-height:70px;transition:background .15s}
+.d:hover{background:#fff0f7}
+.d.sel{outline:2px solid #d96fa4;background:#fff0f7}
+.d.t{border-color:#e5a5c5;background:#fff3f8}
+.s{border-radius:8px}
+.s.M{background:#ffe49a}.s.V{background:#c9b8ff}.s.A{background:#ffc6a6}.s.N{background:#a9b4f0;color:#fff}.s.O{background:#dcefe4}
+.ot{color:#c65b91}
+.cfg label{display:block;margin-bottom:4px;font-weight:600;color:#a17b96}
+.tot div{border-left:4px solid #e8a2c5;padding:8px 0 8px 10px;background:#fff8fc;border-radius:0 12px 12px 0}
+.tot b{color:#8f5677}
+.big{background:#fff0f7;border-radius:12px;padding:8px;border-color:#d96fa4!important}
+.cc{background:#fffafd;border-radius:14px;padding:8px}
+.cute-banner{display:flex;align-items:center;gap:12px;padding:14px 16px;margin:10px 0 14px;border-radius:20px;background:linear-gradient(110deg,#ffe9f3,#f4edff 55%,#eaf8eb);border:1px solid #f4d6e7;color:#825a77}
+.cute-banner .mascot{font-size:2.2rem;filter:drop-shadow(0 3px 2px #b67e9b22)}
+.cute-banner strong{display:block;font-size:1rem;color:#b85d8f}
+.cute-banner small{display:block;font-size:.82rem;color:#967f93}
+.banner-deco{margin-left:auto;font-size:1.25rem;white-space:nowrap}
+#st{color:#b487a1}
+@media(max-width:520px){main{padding:10px}.cute-banner{gap:8px;padding:12px}.banner-deco{font-size:1rem}.cute-banner .mascot{font-size:1.8rem}.d{min-height:58px;padding:3px}}
+</style></head><body><main>
+<div class="row sp"><h1>ตารางเวร & รายรับ</h1><span id="st"></span></div>
+ <div class="cute-banner"><span class="mascot">🐰</span><div><strong>สวัสดีคุณพยาบาลคนเก่ง 🌷</strong><small>จัดเวรให้เป็นระเบียบ ดูแลคนไข้แล้วอย่าลืมดูแลตัวเองนะ</small></div><span class="banner-deco">🌿 🐞 🌼</span></div>
+
+<div class="card"><div class="row sp">
+ <div class="row"><button id="pv">‹</button><b id="ml" style="min-width:140px;text-align:center"></b><button id="nx">›</button><button id="td">วันนี้</button></div>
+ <div class="row"><span>ช=เช้า บ=บ่าย ด=ดึก O=ออฟ</span></div></div>
+ <div class="grid" id="g" style="margin-top:8px"></div></div>
+
+<div class="card" id="ed"><h2 id="eh"></h2>
+ <div class="row" id="sb"></div><small style="color:var(--mute)">กดได้หลายกะต่อวัน เช่น เช้า+บ่าย (ควบเวร) กดซ้ำเพื่อยกเลิก ส่วน ออฟ เลือกได้เดี่ยวเท่านั้น</small>
+ <div class="cfg" style="margin-top:8px"><div><label>ค่า OT ต่อวัน (บาท)</label><input id="eo" type="number" min="0" step="1" placeholder="เช่น 900"></div><div><label>จำนวนวันที่ทำ OT</label><input id="eod" type="number" min="0" step="1" placeholder="เช่น 2"></div><div style="grid-column:span 2;background:var(--bg);border-radius:8px;padding:8px"><b>รวมค่า OT ของวันนี้: <span id="otPreview">0 บาท</span></b><small style="display:block;color:var(--mute)">คำนวณจาก ค่า OT ต่อวัน × จำนวนวันที่ทำ OT และนำไปรวมในรายรับทั้งเดือนอัตโนมัติ</small></div><div style="grid-column:span 2"><label>หมายเหตุ / แชร์เวร (เช่น แลกเวรกับพี่ก้อย)</label><input id="en"></div></div></div>
+
+<div id="fin">
+<div class="card"><h2>รายรับเดือนนี้</h2><div class="tot" id="tt"></div></div>
+<div class="two"><div class="card"><h2>รายรับ 6 เดือนล่าสุด</h2><div class="cc"><canvas id="c1"></canvas></div></div>
+<div class="card"><h2>สัดส่วนเดือนนี้</h2><div class="cc"><canvas id="c2"></canvas></div></div></div>
+
+<div class="card"><h2>รายรับอื่นๆ เดือนนี้</h2><div id="ol"></div>
+ <div class="row" style="margin-top:8px"><input id="ol1" placeholder="ชื่อรายการ" style="flex:2"><input id="ol2" type="number" placeholder="จำนวนเงิน" style="flex:1"><button class="p" id="oa">เพิ่ม</button></div></div>
+
+<div class="card"><h2>รายรับ</h2><div class="cfg" id="cf"></div>
+  <h2 style="margin-top:12px">OT ประจำเดือน</h2>
+  <div class="cfg">
+   <div><label>ค่า OT ต่อวัน (บาท)</label><input id="monthOTRate" type="number" min="0" step="1" placeholder="เช่น 900"></div>
+   <div><label>จำนวนวันที่ทำ OT</label><input id="monthOTDays" type="number" min="0" step="1" placeholder="เช่น 5"></div>
+   <div style="grid-column:1/-1;background:var(--bg);border-radius:8px;padding:8px"><b>รวม OT ประจำเดือน: <span id="monthOTTotal">0 บาท</span></b></div>
+  </div>
+ </div>
+<div class="card"><h2>Google Sheet</h2><div class="cfg">
+ <div style="grid-column:span 2"><label>URL ของ Apps Script (Web app)</label><input id="u"></div>
+ <div><label>รหัส</label><input id="k" type="password"></div></div>
+ <div class="row" style="margin-top:8px"><button class="p" id="ps">บันทึกขึ้น Sheet</button><button id="pl">ดึงจาก Sheet</button></div></div>
+</div>
+
+<div class="card"><h2>แชร์ตารางเวรเดือนนี้</h2><div class="row"><button class="p" id="sh">คัดลอกลิงก์</button><span id="sm" style="color:var(--mute)">ลิงก์นี้แสดงเฉพาะเวร ไม่มีข้อมูลรายรับ</span></div></div>
+</main>
+<script>
+const $=i=>document.getElementById(i),L={M:'ช',A:'บ',N:'ด',O:'O',V:'VAC'},NM={M:'เช้า',A:'บ่าย',N:'ดึก',O:'ออฟ',V:'VAC (ลาพักร้อน)'};
+const FS=[['base','เงินเดือน'],['lic','ค่าใบประกอบ'],['pos','ค่าตำแหน่ง'],['rM','ค่าเวรเช้า/เวร'],['rA','ค่าเวรบ่าย/เวร'],['rN','ค่าเวรดึก/เวร']];
+let S;try{S=JSON.parse(localStorage.nr)}catch(e){}
+S=S||{cfg:{base:0,lic:0,pos:0,rM:0,rA:0,rN:0,rOT:0,otRate:0,otDaysMonth:0,url:'',key:''},days:{},other:{}};
+let cur=new Date();cur.setDate(1);let sel=null,ro=false,c1,c2,tm;
+const pad=n=>String(n).padStart(2,'0'),ymOf=d=>d.getFullYear()+'-'+pad(d.getMonth()+1),
+ th=n=>Math.round(n).toLocaleString('th-TH'),dk=(ym,d)=>ym+'-'+pad(d);
+// โหมดดูอย่างเดียวจากลิงก์แชร์
+if(location.hash.startsWith('#share=')){try{const o=JSON.parse(decodeURIComponent(escape(atob(location.hash.slice(7)))));S={cfg:{},days:o.days,other:{}};cur=new Date(o.ym+'-01');ro=true;$('fin').hidden=$('ed').hidden=true;document.querySelector('.card:last-child').hidden=true;$('st').textContent='โหมดดูอย่างเดียว'}catch(e){}}
+function save(){if(ro)return;localStorage.nr=JSON.stringify(S);clearTimeout(tm);if(S.cfg.url){$('st').textContent='รอซิงก์…';tm=setTimeout(push,1500)}}
+function calc(ym){const c=S.cfg,n={M:0,A:0,N:0,O:0,V:0};let otDays=0,ot=0;
+ for(const k in S.days)if(k.startsWith(ym)){const d=S.days[k];for(const code of d.s||'')n[code]++;const rate=+(d.otAmount??d.ot)||0,days=+(d.otDays??(d.ot?1:0))||0;ot+=rate*days;otDays+=days}
+ ot+=(+c.otRate||0)*(+c.otDaysMonth||0);otDays+=(+c.otDaysMonth||0);const sh=n.M*c.rM+n.A*c.rA+n.N*c.rN,fx=+c.base+ +c.lic+ +c.pos,
+ ox=(S.other[ym]||[]).reduce((a,x)=>a+ +x.a,0);return{n,otDays,sh,ot,fx,ox,t:sh+ot+fx+ox}}
+function render(){const ym=ymOf(cur),y=cur.getFullYear(),m=cur.getMonth(),first=new Date(y,m,1).getDay(),nd=new Date(y,m+1,0).getDate(),today=new Date();
+ $('ml').textContent=cur.toLocaleDateString('th-TH',{month:'long',year:'numeric'});
+ let h=['อา','จ','อ','พ','พฤ','ศ','ส'].map(x=>`<div class="hd">${x}</div>`).join('')+'<div></div>'.repeat(first);
+ for(let d=1;d<=nd;d++){const k=dk(ym,d),v=S.days[k]||{},t=ymOf(today)==ym&&today.getDate()==d;
+  h+=`<div class="d${k==sel?' sel':''}${t?' t':''}" data-k="${k}" tabindex="0"><small>${d}</small>${v.n?'<span class="nt">💬</span>':''}${+(v.otAmount??v.ot)?`<span class="ot">OT ฿${v.otAmount??v.ot}${+(v.otDays??(v.ot?1:0))>1?' × '+(v.otDays??1):''}</span>`:''}${v.s?`<span class="sw">${[...v.s].map(c=>`<span class="s ${c}">${L[c]}</span>`).join('')}</span>`:''}</div>`}
+ $('g').innerHTML=h;
+ document.querySelectorAll('.d').forEach(e=>{e.onclick=()=>{sel=e.dataset.k;ro?note():render();edit()};e.onkeydown=ev=>ev.key=='Enter'&&e.click()});
+ if(ro)return;edit(true);
+ const r=calc(ym);$('tt').innerHTML=[['เวรเช้า/บ่าย/ดึก/ออฟ/VAC',`${r.n.M}/${r.n.A}/${r.n.N}/${r.n.O}/${r.n.V} วัน`],['ค่าเวร',th(r.sh)],['OT '+r.otDays+' วัน',th(r.ot)],['เงินเดือน+ใบประกอบ+ตำแหน่ง',th(r.fx)],['รายรับอื่นๆ',th(r.ox)]].map(x=>`<div><b>${x[1]}</b><span>${x[0]}</span></div>`).join('')+`<div class="big"><b>${th(r.t)} บาท</b><span>รวมทั้งเดือน</span></div>`;
+ const ms=[];for(let i=5;i>=0;i--){const d=new Date(y,m-i,1);ms.push([ymOf(d),d.toLocaleDateString('th-TH',{month:'short'}),calc(ymOf(d))])}
+ if(window.Chart){c1&&c1.destroy();c2&&c2.destroy();
+ const ds=(l,f,c)=>({label:l,data:ms.map(x=>x[2][f]),backgroundColor:c});
+ c1=new Chart($('c1'),{type:'bar',data:{labels:ms.map(x=>x[1]),datasets:[ds('เงินเดือน/เบี้ย','fx','#0f766e'),ds('ค่าเวร','sh','#f4c542'),ds('OT','ot','#f08a4b'),ds('อื่นๆ','ox','#3d4f8f')]},options:{maintainAspectRatio:false,scales:{x:{stacked:true},y:{stacked:true}}}});
+ c2=new Chart($('c2'),{type:'doughnut',data:{labels:['เงินเดือน/เบี้ย','ค่าเวร','OT','อื่นๆ'],datasets:[{data:[r.fx,r.sh,r.ot,r.ox],backgroundColor:['#0f766e','#f4c542','#f08a4b','#3d4f8f']}]},options:{maintainAspectRatio:false}})}
+ const ol=S.other[ym]||[];$('ol').innerHTML=ol.map((x,i)=>`<div class="row sp"><span>${x.l}</span><span>${th(x.a)} <button data-i="${i}" class="rm">ลบ</button></span></div>`).join('')||'<span style="color:var(--mute)">ยังไม่มี เพิ่มได้ด้านล่าง</span>';
+ document.querySelectorAll('.rm').forEach(b=>b.onclick=()=>{S.other[ym].splice(b.dataset.i,1);save();render()})}
+function note(){const v=S.days[sel]||{};alert(sel+'\nเวร: '+([...(v.s||'')].map(c=>NM[c]).join(' + ')||'-')+(+(v.otAmount??v.ot)?'\nOT '+(v.otAmount??v.ot)+' บาท/วัน × '+(v.otDays??(v.ot?1:0))+' วัน = '+((v.otAmount??v.ot)*(v.otDays??(v.ot?1:0)))+' บาท':'')+(v.n?'\n'+v.n:''))}
+function edit(keep){if(ro)return;const e=$('ed');if(!sel){e.hidden=true;return}e.hidden=false;if(keep===true&&e.dataset.k==sel)return;e.dataset.k=sel;
+ const v=S.days[sel]||{};$('eh').textContent='วันที่ '+sel.split('-').reverse().join('/');
+ $('sb').innerHTML=['M','A','N','O','V'].map(s=>`<button class="${(v.s||'').includes(s)?'p':''}" data-s="${s}">${L[s]} ${NM[s]}</button>`).join('')+'<button data-s="">ล้าง</button>';
+ document.querySelectorAll('#sb button').forEach(b=>b.onclick=()=>{const x=b.dataset.s,cs=(S.days[sel]||{}).s||'';let n;if(x==='')n='';else if(x==='O'||x==='V')n=cs===x?'':x;else{n=cs.replace(/[OV]/g,'');n=n.includes(x)?n.replace(x,''):n+x}set({s:n});e.dataset.k='';render()});
+ $('eo').value=v.otAmount??v.ot??'';$('eod').value=v.otDays??(v.ot?1:'');$('en').value=v.n||'';updateOTPreview()}
+function updateOTPreview(){const rate=Math.max(0,Number($('eo').value)||0),days=Math.max(0,Number($('eod').value)||0);$('otPreview').textContent=th(rate*days)+' บาท'}
+function set(o){S.days[sel]=Object.assign({s:'',ot:0,n:''},S.days[sel],o);const v=S.days[sel];if(!v.s&&!+(v.otAmount??v.ot)&&!+v.otDays&&!v.n)delete S.days[sel];save()}
+$('eo').oninput=e=>{set({otAmount:Math.max(0,Number(e.target.value)||0)});updateOTPreview();render()};$('eo').onchange=e=>{set({otAmount:Math.max(0,Number(e.target.value)||0)});updateOTPreview();render()};$('eod').oninput=e=>{set({otDays:Math.max(0,Number(e.target.value)||0)});updateOTPreview();render()};$('eod').onchange=e=>{set({otDays:Math.max(0,Number(e.target.value)||0)});updateOTPreview();render()};$('en').onchange=e=>{set({n:e.target.value});render()};
+$('pv').onclick=()=>{cur.setMonth(cur.getMonth()-1);sel=null;render()};$('nx').onclick=()=>{cur.setMonth(cur.getMonth()+1);sel=null;render()};
+$('td').onclick=()=>{cur=new Date();cur.setDate(1);render()};
+$('oa').onclick=()=>{const l=$('ol1').value.trim(),a=+$('ol2').value;if(!l||!a)return;const ym=ymOf(cur);(S.other[ym]=S.other[ym]||[]).push({l,a});$('ol1').value=$('ol2').value='';save();render()};
+$('sh').onclick=()=>{const ym=ymOf(cur),days={};for(const k in S.days)if(k.startsWith(ym))days[k]={s:S.days[k].s,ot:0,n:S.days[k].n};
+ const u=location.href.split('#')[0]+'#share='+btoa(unescape(encodeURIComponent(JSON.stringify({ym,days}))));
+ navigator.clipboard.writeText(u).then(()=>$('sm').textContent='คัดลอกแล้ว ส่งให้เพื่อนร่วมเวรได้เลย',()=>prompt('คัดลอกลิงก์',u))};
+if(!ro){$('cf').innerHTML=FS.map(f=>`<div><label>${f[1]}</label><input type="number" data-f="${f[0]}" value="${S.cfg[f[0]]||''}"></div>`).join('');
+ document.querySelectorAll('[data-f]').forEach(i=>i.oninput=()=>{S.cfg[i.dataset.f]=+i.value||0;save();render()});
+ $('u').value=S.cfg.url||'';$('k').value=S.cfg.key||'';$('u').onchange=e=>{S.cfg.url=e.target.value.trim();save()};$('k').onchange=e=>{S.cfg.key=e.target.value;save()}
+  $('monthOTRate').value=S.cfg.otRate||'';$('monthOTDays').value=S.cfg.otDaysMonth||'';
+  const updateMonthOT=()=>{$('monthOTTotal').textContent=th((+S.cfg.otRate||0)*(+S.cfg.otDaysMonth||0))+' บาท'};
+  $('monthOTRate').oninput=e=>{S.cfg.otRate=Math.max(0,+e.target.value||0);save();updateMonthOT();render()};
+  $('monthOTDays').oninput=e=>{S.cfg.otDaysMonth=Math.max(0,+e.target.value||0);save();updateMonthOT();render()};
+  updateMonthOT()}
+async function push(){try{const r=await(await fetch(S.cfg.url,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({key:S.cfg.key,days:S.days,cfg:{cfg:S.cfg,other:S.other}})})).json();$('st').textContent=r.ok?'ซิงก์แล้ว '+new Date().toLocaleTimeString('th-TH'):'ผิดพลาด: '+r.error}catch(e){$('st').textContent='ซิงก์ไม่สำเร็จ (ข้อมูลยังอยู่ในเครื่อง)'}}
+async function pull(){try{const r=await(await fetch(S.cfg.url+'?key='+encodeURIComponent(S.cfg.key))).json();if(r.error){$('st').textContent=r.error;return}
+ S.days=r.days||{};if(r.cfg){S.other=r.cfg.other||{};S.cfg=Object.assign(S.cfg,r.cfg.cfg,{url:S.cfg.url,key:S.cfg.key})}localStorage.nr=JSON.stringify(S);location.reload()}catch(e){$('st').textContent='ดึงข้อมูลไม่สำเร็จ'}}
+$('ps').onclick=push;$('pl').onclick=pull;
+render();if(!ro&&S.cfg.url)pull_quiet();
+function pull_quiet(){/* เปิดเว็บแล้วดึงข้อมูลล่าสุดจากเครื่องอื่นอัตโนมัติ */fetch(S.cfg.url+'?key='+encodeURIComponent(S.cfg.key)).then(r=>r.json()).then(r=>{if(!r.error&&r.days&&JSON.stringify(r.days)!==JSON.stringify(S.days)&&Object.keys(r.days).length>=Object.keys(S.days).length){S.days=r.days;if(r.cfg)S.other=r.cfg.other||S.other;localStorage.nr=JSON.stringify(S);render()}}).catch(()=>{})}
+</script></body></html>
