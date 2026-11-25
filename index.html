@@ -165,4 +165,26 @@ function render(){const ym=ymOf(cur),y=cur.getFullYear(),m=cur.getMonth(),first=
 function note(){const v=S.days[sel]||{};alert(sel+'\nเวร: '+([...(v.s||'')].map(c=>NM[c]).join(' + ')||'-')+(+(v.otAmount??v.ot)?'\nOT '+(v.otAmount??v.ot)+' บาท/วัน × '+(v.otDays??(v.ot?1:0))+' วัน = '+((v.otAmount??v.ot)*(v.otDays??(v.ot?1:0)))+' บาท':'')+(v.n?'\n'+v.n:''))}
 function edit(keep){if(ro)return;const e=$('ed');if(!sel){e.hidden=true;return}e.hidden=false;if(keep===true&&e.dataset.k==sel)return;e.dataset.k=sel;
  const v=S.days[sel]||{};$('eh').textContent='วันที่ '+sel.split('-').reverse().join('/');
- $('sb').innerHTML=['M','A','N','O','V','T','K'].map(s=>`<button class="${(v.s||'').includes(s)?'p':''}" data-s="${s}">${L[s]} ${NM[s]}</button>`).join('')+'<button data-s="">ล้
+ $('sb').innerHTML=['M','A','N','O','V','T','K'].map(s=>`<button class="${(v.s||'').includes(s)?'p':''}" data-s="${s}">${L[s]} ${NM[s]}</button>`).join('')+'<button data-s="">ล้าง</button>';
+ document.querySelectorAll('#sb button').forEach(b=>b.onclick=()=>{const x=b.dataset.s,cs=(S.days[sel]||{}).s||'';let n;if(x==='')n='';else if(x==='O'||x==='V')n=cs===x?'':x;else{n=cs.replace(/[OV]/g,'');n=n.includes(x)?n.replace(x,''):n+x}set({s:n});e.dataset.k='';render()});
+ $('eo').value=v.otAmount??v.ot??'';$('eod').value=v.otDays??(v.ot?1:'');$('en').value=v.n||'';updateOTPreview()}
+function updateOTPreview(){const rate=Math.max(0,Number($('eo').value)||0),days=Math.max(0,Number($('eod').value)||0);$('otPreview').textContent=th(rate*days)+' บาท'}
+function set(o){S.days[sel]=Object.assign({s:'',ot:0,n:''},S.days[sel],o);const v=S.days[sel];if(!v.s&&!+(v.otAmount??v.ot)&&!+v.otDays&&!v.n)delete S.days[sel];save()}
+$('eo').oninput=e=>{set({otAmount:Math.max(0,Number(e.target.value)||0)});updateOTPreview();render()};$('eo').onchange=e=>{set({otAmount:Math.max(0,Number(e.target.value)||0)});updateOTPreview();render()};$('eod').oninput=e=>{set({otDays:Math.max(0,Number(e.target.value)||0)});updateOTPreview();render()};$('eod').onchange=e=>{set({otDays:Math.max(0,Number(e.target.value)||0)});updateOTPreview();render()};$('en').onchange=e=>{set({n:e.target.value});render()};
+$('pv').onclick=()=>{cur.setMonth(cur.getMonth()-1);sel=null;render()};$('nx').onclick=()=>{cur.setMonth(cur.getMonth()+1);sel=null;render()};
+$('td').onclick=()=>{cur=new Date();cur.setDate(1);render()};
+$('oa').onclick=()=>{const l=$('ol1').value.trim(),a=+$('ol2').value;if(!l||!a)return;const ym=ymOf(cur);(S.other[ym]=S.other[ym]||[]).push({l,a});$('ol1').value=$('ol2').value='';save();render()};
+$('sh').onclick=()=>{const ym=ymOf(cur),days={};for(const k in S.days)if(k.startsWith(ym))days[k]={s:S.days[k].s,ot:0,n:S.days[k].n};
+ const u=location.href.split('#')[0]+'#share='+btoa(unescape(encodeURIComponent(JSON.stringify({ym,days}))));
+ navigator.clipboard.writeText(u).then(()=>$('sm').textContent='คัดลอกแล้ว ส่งให้เพื่อนร่วมเวรได้เลย',()=>prompt('คัดลอกลิงก์',u))};
+if(!ro){
+ $('u').value=S.cfg.url||'';$('k').value=S.cfg.key||'';$('u').onchange=e=>{S.cfg.url=e.target.value.trim();save()};$('k').onchange=e=>{S.cfg.key=e.target.value;save()};
+  $('monthOTRate').oninput=e=>{getC(ymOf(cur)).otRate=Math.max(0,+e.target.value||0);save();updateMonthOT();render()};
+  $('monthOTDays').oninput=e=>{getC(ymOf(cur)).otDaysMonth=Math.max(0,+e.target.value||0);save();updateMonthOT();render()}}
+async function push(){try{const r=await(await fetch(S.cfg.url,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({key:S.cfg.key,days:S.days,cfg:{cfg:S.cfg,other:S.other,mcfg:S.mcfg}})})).json();$('st').textContent=r.ok?'ซิงก์แล้ว '+new Date().toLocaleTimeString('th-TH'):'ผิดพลาด: '+r.error}catch(e){$('st').textContent='ซิงก์ไม่สำเร็จ (ข้อมูลยังอยู่ในเครื่อง)'}}
+async function pull(){try{const r=await(await fetch(S.cfg.url+'?key='+encodeURIComponent(S.cfg.key))).json();if(r.error){$('st').textContent=r.error;return}
+ S.days=r.days||{};if(r.cfg){S.other=r.cfg.other||{};S.mcfg=r.cfg.mcfg||S.mcfg;S.cfg=Object.assign(S.cfg,r.cfg.cfg,{url:S.cfg.url,key:S.cfg.key})}localStorage.nr=JSON.stringify(S);location.reload()}catch(e){$('st').textContent='ดึงข้อมูลไม่สำเร็จ'}}
+$('ps').onclick=push;$('pl').onclick=pull;
+render();if(!ro&&S.cfg.url)pull_quiet();
+function pull_quiet(){/* เปิดเว็บแล้วดึงข้อมูลล่าสุดจากเครื่องอื่นอัตโนมัติ */fetch(S.cfg.url+'?key='+encodeURIComponent(S.cfg.key)).then(r=>r.json()).then(r=>{if(!r.error&&r.days&&JSON.stringify(r.days)!==JSON.stringify(S.days)&&Object.keys(r.days).length>=Object.keys(S.days).length){S.days=r.days;if(r.cfg){S.other=r.cfg.other||S.other;S.mcfg=r.cfg.mcfg||S.mcfg}cfgYm='';localStorage.nr=JSON.stringify(S);render()}}).catch(()=>{})}
+</script></body></html>
