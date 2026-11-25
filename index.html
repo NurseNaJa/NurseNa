@@ -66,11 +66,29 @@ input:focus{border-color:#d96fa4}
 .banner-deco{margin-left:auto;font-size:1.25rem;white-space:nowrap}
 #st{color:#b487a1}
 @media(max-width:520px){main{padding:10px}.cute-banner{gap:8px;padding:12px}.banner-deco{font-size:1rem}.cute-banner .mascot{font-size:1.8rem}.d{min-height:58px;padding:3px}}
-</style></head><body><main>
-<div class="row sp"><h1>ตารางเวร & รายรับ</h1><span id="st"></span></div>
- <div class="cute-banner"><span class="mascot">🐰</span><div><strong>สวัสดีคุณพยาบาลคนเก่ง 🌷</strong><small>จัดเวรให้เป็นระเบียบ ดูแลคนไข้แล้วอย่าลืมดูแลตัวเองนะ</small></div><span class="banner-deco">🌿 🐞 🌼</span></div>
 
-<div class="card"><div class="row sp">
+/* Bunny decorations */
+body{background:radial-gradient(ellipse at 8% 4%,#ffe7f1 0,transparent 26%),radial-gradient(ellipse at 95% 18%,#e5f6e8 0,transparent 25%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cg fill='%23f7d9e6' opacity='.7'%3E%3Cellipse cx='96' cy='22' rx='3.6' ry='9' transform='rotate(-8 96 22)'/%3E%3Cellipse cx='108' cy='22' rx='3.6' ry='9' transform='rotate(8 108 22)'/%3E%3Cellipse cx='102' cy='38' rx='12' ry='10'/%3E%3Cpath d='M30 104c-9-8-16-14-9-20 4-3 8-1 9 3 1-4 5-6 9-3 7 6 0 12-9 20z'/%3E%3Ccircle cx='62' cy='132' r='3'/%3E%3Ccircle cx='132' cy='108' r='3'/%3E%3Ccircle cx='24' cy='28' r='2.4'/%3E%3C/g%3E%3C/svg%3E"),var(--bg)}
+h1::before,h2::before{content:'';display:inline-block;width:1.25em;height:1.25em;margin-right:.35em;vertical-align:-.25em;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cg stroke='%23e0a9c3' stroke-width='1.2' fill='%23fff'%3E%3Cellipse cx='11' cy='8' rx='3.4' ry='7.5' transform='rotate(-8 11 8)'/%3E%3Cellipse cx='21' cy='8' rx='3.4' ry='7.5' transform='rotate(8 21 8)'/%3E%3Cellipse cx='16' cy='21' rx='11' ry='9.5'/%3E%3C/g%3E%3Cellipse cx='11' cy='8.5' rx='1.4' ry='5' fill='%23ffc9de' transform='rotate(-8 11 8)'/%3E%3Cellipse cx='21' cy='8.5' rx='1.4' ry='5' fill='%23ffc9de' transform='rotate(8 21 8)'/%3E%3Ccircle cx='12' cy='20' r='1.3' fill='%235b3f58'/%3E%3Ccircle cx='20' cy='20' r='1.3' fill='%235b3f58'/%3E%3Cellipse cx='16' cy='23.2' rx='1.1' ry='.8' fill='%23f58fb5'/%3E%3C/svg%3E") center/contain no-repeat}
+.bun-lg{width:70px;height:78px;flex:none;animation:hop 2.6s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes hop{0%,100%{transform:translateY(0) rotate(0)}45%{transform:translateY(-7px) rotate(-3deg)}}
+.cute-host{position:relative;margin-top:40px}
+.peek{position:absolute;top:-34px;right:22px;width:56px;height:39px;pointer-events:none}
+.peek.l{right:auto;left:22px}
+.cute-foot{display:flex;align-items:flex-end;justify-content:center;gap:12px;padding:4px 16px 30px;color:#b487a1;text-align:center}
+.cute-foot svg{width:66px;height:74px;flex:none}.cute-foot svg+p+svg{transform:scaleX(-1)}
+.cute-foot p{margin:0 0 10px;font-weight:600;font-size:.95rem}
+@media(max-width:520px){.bun-lg{width:56px;height:63px}.cute-foot svg{width:54px;height:61px}}
+@media(prefers-reduced-motion:reduce){.bun-lg{animation:none}}
+</style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="bny" viewBox="0 0 100 114"><g stroke="#e8b8cf" stroke-width="2.2" stroke-linejoin="round"><ellipse cx="50" cy="94" rx="28" ry="16" fill="#fff"/><g transform="rotate(-10 36 28)"><ellipse cx="36" cy="26" rx="10.5" ry="25" fill="#fff"/><ellipse cx="36" cy="28" rx="5" ry="16" fill="#ffc9de" stroke="none"/></g><g transform="rotate(12 64 28)"><ellipse cx="64" cy="26" rx="10.5" ry="25" fill="#fff"/><ellipse cx="64" cy="28" rx="5" ry="16" fill="#ffc9de" stroke="none"/></g><ellipse cx="50" cy="64" rx="35" ry="30" fill="#fff"/><ellipse cx="37" cy="105" rx="8" ry="5.5" fill="#fff"/><ellipse cx="63" cy="105" rx="8" ry="5.5" fill="#fff"/></g><ellipse cx="28" cy="72" rx="6.5" ry="4.2" fill="#ffb3cf" opacity=".75"/><ellipse cx="72" cy="72" rx="6.5" ry="4.2" fill="#ffb3cf" opacity=".75"/><circle cx="37" cy="62" r="3.6" fill="#5b3f58"/><circle cx="63" cy="62" r="3.6" fill="#5b3f58"/><circle cx="38.2" cy="60.8" r="1.2" fill="#fff"/><circle cx="64.2" cy="60.8" r="1.2" fill="#fff"/><ellipse cx="50" cy="68" rx="2.8" ry="2.1" fill="#f58fb5"/><path d="M50 70q-3.5 5-7 2M50 70q3.5 5 7 2" fill="none" stroke="#a9607f" stroke-width="1.8" stroke-linecap="round"/></symbol>
+<symbol id="bpeek" viewBox="0 0 100 70"><g stroke="#e8b8cf" stroke-width="2.2" stroke-linejoin="round"><g transform="rotate(-10 34 24)"><ellipse cx="34" cy="22" rx="9.5" ry="21" fill="#fff"/><ellipse cx="34" cy="24" rx="4.5" ry="13.5" fill="#ffc9de" stroke="none"/></g><g transform="rotate(12 66 24)"><ellipse cx="66" cy="22" rx="9.5" ry="21" fill="#fff"/><ellipse cx="66" cy="24" rx="4.5" ry="13.5" fill="#ffc9de" stroke="none"/></g><ellipse cx="50" cy="52" rx="35" ry="27" fill="#fff"/><ellipse cx="31" cy="68" rx="9" ry="6" fill="#fff"/><ellipse cx="69" cy="68" rx="9" ry="6" fill="#fff"/></g><ellipse cx="27" cy="55" rx="6" ry="3.8" fill="#ffb3cf" opacity=".75"/><ellipse cx="73" cy="55" rx="6" ry="3.8" fill="#ffb3cf" opacity=".75"/><circle cx="37" cy="46" r="3.4" fill="#5b3f58"/><circle cx="63" cy="46" r="3.4" fill="#5b3f58"/><circle cx="38.1" cy="44.9" r="1.1" fill="#fff"/><circle cx="64.1" cy="44.9" r="1.1" fill="#fff"/><ellipse cx="50" cy="52" rx="2.6" ry="2" fill="#f58fb5"/><path d="M50 54q-3.2 4.5-6.4 1.8M50 54q3.2 4.5 6.4 1.8" fill="none" stroke="#a9607f" stroke-width="1.7" stroke-linecap="round"/></symbol>
+</defs></svg>
+<main>
+<div class="row sp"><h1>ตารางเวร & รายรับ</h1><span id="st"></span></div>
+ <div class="cute-banner"><svg class="bun-lg" aria-hidden="true"><use href="#bny"/></svg><div><strong>สวัสดีคุณพยาบาลคนเก่ง 🌷</strong><small>จัดเวรให้เป็นระเบียบ ดูแลคนไข้แล้วอย่าลืมดูแลตัวเองนะ</small></div><span class="banner-deco">🌿 🐞 🌼</span></div>
+
+<div class="card cute-host"><svg class="peek" aria-hidden="true"><use href="#bpeek"/></svg><div class="row sp">
  <div class="row"><button id="pv">‹</button><b id="ml" style="min-width:140px;text-align:center"></b><button id="nx">›</button><button id="td">วันนี้</button></div>
  <div class="row"><span>ช=เช้า บ=บ่าย ด=ดึก O=ออฟ อบ=อบรม กส=กันสอน</span></div></div>
  <div class="grid" id="g" style="margin-top:8px"></div></div>
@@ -80,11 +98,11 @@ input:focus{border-color:#d96fa4}
  <div class="cfg" style="margin-top:8px"><div><label>ค่า OT ต่อวัน (บาท)</label><input id="eo" type="number" min="0" step="1" placeholder="เช่น 900"></div><div><label>จำนวนวันที่ทำ OT</label><input id="eod" type="number" min="0" step="1" placeholder="เช่น 2"></div><div style="grid-column:span 2;background:var(--bg);border-radius:8px;padding:8px"><b>รวมค่า OT ของวันนี้: <span id="otPreview">0 บาท</span></b><small style="display:block;color:var(--mute)">คำนวณจาก ค่า OT ต่อวัน × จำนวนวันที่ทำ OT และนำไปรวมในรายรับทั้งเดือนอัตโนมัติ</small></div><div style="grid-column:span 2"><label>หมายเหตุ / แชร์เวร (เช่น แลกเวรกับพี่ก้อย)</label><input id="en"></div></div></div>
 
 <div id="fin">
-<div class="card"><h2>รายรับเดือนนี้</h2><div class="tot" id="tt"></div></div>
+<div class="card cute-host"><svg class="peek l" aria-hidden="true"><use href="#bpeek"/></svg><h2>รายรับเดือนนี้</h2><div class="tot" id="tt"></div></div>
 <div class="two"><div class="card"><h2>รายรับ 6 เดือนล่าสุด</h2><div class="cc"><canvas id="c1"></canvas></div></div>
 <div class="card"><h2>สัดส่วนเดือนนี้</h2><div class="cc"><canvas id="c2"></canvas></div></div></div>
 
-<div class="card"><h2>รายรับอื่นๆ เดือนนี้</h2><div id="ol"></div>
+<div class="card cute-host"><svg class="peek" aria-hidden="true"><use href="#bpeek"/></svg><h2>รายรับอื่นๆ เดือนนี้</h2><div id="ol"></div>
  <div class="row" style="margin-top:8px"><input id="ol1" placeholder="ชื่อรายการ" style="flex:2"><input id="ol2" type="number" placeholder="จำนวนเงิน" style="flex:1"><button class="p" id="oa">เพิ่ม</button></div></div>
 
 <div class="card"><h2 id="ch">รายรับ</h2><div class="cfg" id="cf"></div>
@@ -103,6 +121,7 @@ input:focus{border-color:#d96fa4}
 
 <div class="card"><h2>แชร์ตารางเวรเดือนนี้</h2><div class="row"><button class="p" id="sh">คัดลอกลิงก์</button><span id="sm" style="color:var(--mute)">ลิงก์นี้แสดงเฉพาะเวร ไม่มีข้อมูลรายรับ</span></div></div>
 </main>
+<footer class="cute-foot"><svg aria-hidden="true"><use href="#bny"/></svg><p>ขอให้เป็นเวรที่ราบรื่นนะคะ 🌷</p><svg aria-hidden="true"><use href="#bny"/></svg></footer>
 <script>
 const $=i=>document.getElementById(i),L={M:'ช',A:'บ',N:'ด',O:'O',V:'VAC',T:'อบ',K:'สอน'},NM={M:'เช้า',A:'บ่าย',N:'ดึก',O:'ออฟ',V:'VAC (ลาพักร้อน)',T:'อบรม',K:'สอน'};
 const FS=[['base','เงินเดือน'],['lic','ค่าใบประกอบ'],['pos','ค่าตำแหน่ง'],['rM','ค่าเวรเช้า/เวร'],['rA','ค่าเวรบ่าย/เวร'],['rN','ค่าเวรดึก/เวร']];
@@ -146,26 +165,4 @@ function render(){const ym=ymOf(cur),y=cur.getFullYear(),m=cur.getMonth(),first=
 function note(){const v=S.days[sel]||{};alert(sel+'\nเวร: '+([...(v.s||'')].map(c=>NM[c]).join(' + ')||'-')+(+(v.otAmount??v.ot)?'\nOT '+(v.otAmount??v.ot)+' บาท/วัน × '+(v.otDays??(v.ot?1:0))+' วัน = '+((v.otAmount??v.ot)*(v.otDays??(v.ot?1:0)))+' บาท':'')+(v.n?'\n'+v.n:''))}
 function edit(keep){if(ro)return;const e=$('ed');if(!sel){e.hidden=true;return}e.hidden=false;if(keep===true&&e.dataset.k==sel)return;e.dataset.k=sel;
  const v=S.days[sel]||{};$('eh').textContent='วันที่ '+sel.split('-').reverse().join('/');
- $('sb').innerHTML=['M','A','N','O','V','T','K'].map(s=>`<button class="${(v.s||'').includes(s)?'p':''}" data-s="${s}">${L[s]} ${NM[s]}</button>`).join('')+'<button data-s="">ล้าง</button>';
- document.querySelectorAll('#sb button').forEach(b=>b.onclick=()=>{const x=b.dataset.s,cs=(S.days[sel]||{}).s||'';let n;if(x==='')n='';else if(x==='O'||x==='V')n=cs===x?'':x;else{n=cs.replace(/[OV]/g,'');n=n.includes(x)?n.replace(x,''):n+x}set({s:n});e.dataset.k='';render()});
- $('eo').value=v.otAmount??v.ot??'';$('eod').value=v.otDays??(v.ot?1:'');$('en').value=v.n||'';updateOTPreview()}
-function updateOTPreview(){const rate=Math.max(0,Number($('eo').value)||0),days=Math.max(0,Number($('eod').value)||0);$('otPreview').textContent=th(rate*days)+' บาท'}
-function set(o){S.days[sel]=Object.assign({s:'',ot:0,n:''},S.days[sel],o);const v=S.days[sel];if(!v.s&&!+(v.otAmount??v.ot)&&!+v.otDays&&!v.n)delete S.days[sel];save()}
-$('eo').oninput=e=>{set({otAmount:Math.max(0,Number(e.target.value)||0)});updateOTPreview();render()};$('eo').onchange=e=>{set({otAmount:Math.max(0,Number(e.target.value)||0)});updateOTPreview();render()};$('eod').oninput=e=>{set({otDays:Math.max(0,Number(e.target.value)||0)});updateOTPreview();render()};$('eod').onchange=e=>{set({otDays:Math.max(0,Number(e.target.value)||0)});updateOTPreview();render()};$('en').onchange=e=>{set({n:e.target.value});render()};
-$('pv').onclick=()=>{cur.setMonth(cur.getMonth()-1);sel=null;render()};$('nx').onclick=()=>{cur.setMonth(cur.getMonth()+1);sel=null;render()};
-$('td').onclick=()=>{cur=new Date();cur.setDate(1);render()};
-$('oa').onclick=()=>{const l=$('ol1').value.trim(),a=+$('ol2').value;if(!l||!a)return;const ym=ymOf(cur);(S.other[ym]=S.other[ym]||[]).push({l,a});$('ol1').value=$('ol2').value='';save();render()};
-$('sh').onclick=()=>{const ym=ymOf(cur),days={};for(const k in S.days)if(k.startsWith(ym))days[k]={s:S.days[k].s,ot:0,n:S.days[k].n};
- const u=location.href.split('#')[0]+'#share='+btoa(unescape(encodeURIComponent(JSON.stringify({ym,days}))));
- navigator.clipboard.writeText(u).then(()=>$('sm').textContent='คัดลอกแล้ว ส่งให้เพื่อนร่วมเวรได้เลย',()=>prompt('คัดลอกลิงก์',u))};
-if(!ro){
- $('u').value=S.cfg.url||'';$('k').value=S.cfg.key||'';$('u').onchange=e=>{S.cfg.url=e.target.value.trim();save()};$('k').onchange=e=>{S.cfg.key=e.target.value;save()};
-  $('monthOTRate').oninput=e=>{getC(ymOf(cur)).otRate=Math.max(0,+e.target.value||0);save();updateMonthOT();render()};
-  $('monthOTDays').oninput=e=>{getC(ymOf(cur)).otDaysMonth=Math.max(0,+e.target.value||0);save();updateMonthOT();render()}}
-async function push(){try{const r=await(await fetch(S.cfg.url,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({key:S.cfg.key,days:S.days,cfg:{cfg:S.cfg,other:S.other,mcfg:S.mcfg}})})).json();$('st').textContent=r.ok?'ซิงก์แล้ว '+new Date().toLocaleTimeString('th-TH'):'ผิดพลาด: '+r.error}catch(e){$('st').textContent='ซิงก์ไม่สำเร็จ (ข้อมูลยังอยู่ในเครื่อง)'}}
-async function pull(){try{const r=await(await fetch(S.cfg.url+'?key='+encodeURIComponent(S.cfg.key))).json();if(r.error){$('st').textContent=r.error;return}
- S.days=r.days||{};if(r.cfg){S.other=r.cfg.other||{};S.mcfg=r.cfg.mcfg||S.mcfg;S.cfg=Object.assign(S.cfg,r.cfg.cfg,{url:S.cfg.url,key:S.cfg.key})}localStorage.nr=JSON.stringify(S);location.reload()}catch(e){$('st').textContent='ดึงข้อมูลไม่สำเร็จ'}}
-$('ps').onclick=push;$('pl').onclick=pull;
-render();if(!ro&&S.cfg.url)pull_quiet();
-function pull_quiet(){/* เปิดเว็บแล้วดึงข้อมูลล่าสุดจากเครื่องอื่นอัตโนมัติ */fetch(S.cfg.url+'?key='+encodeURIComponent(S.cfg.key)).then(r=>r.json()).then(r=>{if(!r.error&&r.days&&JSON.stringify(r.days)!==JSON.stringify(S.days)&&Object.keys(r.days).length>=Object.keys(S.days).length){S.days=r.days;if(r.cfg){S.other=r.cfg.other||S.other;S.mcfg=r.cfg.mcfg||S.mcfg}cfgYm='';localStorage.nr=JSON.stringify(S);render()}}).catch(()=>{})}
-</script></body></html>
+ $('sb').innerHTML=['M','A','N','O','V','T','K'].map(s=>`<button class="${(v.s||'').includes(s)?'p':''}" data-s="${s}">${L[s]} ${NM[s]}</button>`).join('')+'<button data-s="">ล้
