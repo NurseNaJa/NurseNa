@@ -52,7 +52,7 @@ input:focus{border-color:#d96fa4}
 .d.sel{outline:2px solid #d96fa4;background:#fff0f7}
 .d.t{border-color:#e5a5c5;background:#fff3f8}
 .s{border-radius:8px}
-.s.M{background:#ffe49a}.s.V{background:#c9b8ff}.s.A{background:#ffc6a6}.s.N{background:#a9b4f0;color:#fff}.s.O{background:#dcefe4}
+.s.M{background:#ffe49a}.s.V{background:#c9b8ff}.s.A{background:#ffc6a6}.s.N{background:#a9b4f0;color:#fff}.s.O{background:#dcefe4}.s.T{background:#b9e4f0}.s.K{background:#ffc2d9}
 .ot{color:#c65b91}
 .cfg label{display:block;margin-bottom:4px;font-weight:600;color:#a17b96}
 .tot div{border-left:4px solid #e8a2c5;padding:8px 0 8px 10px;background:#fff8fc;border-radius:0 12px 12px 0}
@@ -72,7 +72,7 @@ input:focus{border-color:#d96fa4}
 
 <div class="card"><div class="row sp">
  <div class="row"><button id="pv">‹</button><b id="ml" style="min-width:140px;text-align:center"></b><button id="nx">›</button><button id="td">วันนี้</button></div>
- <div class="row"><span>ช=เช้า บ=บ่าย ด=ดึก O=ออฟ</span></div></div>
+ <div class="row"><span>ช=เช้า บ=บ่าย ด=ดึก O=ออฟ อบ=อบรม กส=กันสอน</span></div></div>
  <div class="grid" id="g" style="margin-top:8px"></div></div>
 
 <div class="card" id="ed"><h2 id="eh"></h2>
@@ -104,7 +104,7 @@ input:focus{border-color:#d96fa4}
 <div class="card"><h2>แชร์ตารางเวรเดือนนี้</h2><div class="row"><button class="p" id="sh">คัดลอกลิงก์</button><span id="sm" style="color:var(--mute)">ลิงก์นี้แสดงเฉพาะเวร ไม่มีข้อมูลรายรับ</span></div></div>
 </main>
 <script>
-const $=i=>document.getElementById(i),L={M:'ช',A:'บ',N:'ด',O:'O',V:'VAC'},NM={M:'เช้า',A:'บ่าย',N:'ดึก',O:'ออฟ',V:'VAC (ลาพักร้อน)'};
+const $=i=>document.getElementById(i),L={M:'ช',A:'บ',N:'ด',O:'O',V:'VAC',T:'อบ',K:'สอน'},NM={M:'เช้า',A:'บ่าย',N:'ดึก',O:'ออฟ',V:'VAC (ลาพักร้อน)',T:'อบรม',K:'สอน'};
 const FS=[['base','เงินเดือน'],['lic','ค่าใบประกอบ'],['pos','ค่าตำแหน่ง'],['rM','ค่าเวรเช้า/เวร'],['rA','ค่าเวรบ่าย/เวร'],['rN','ค่าเวรดึก/เวร']];
 let S;try{S=JSON.parse(localStorage.nr)}catch(e){}
 S=S||{cfg:{base:0,lic:0,pos:0,rM:0,rA:0,rN:0,rOT:0,otRate:0,otDaysMonth:0,url:'',key:''},days:{},other:{}};
@@ -123,7 +123,7 @@ function buildCfg(ym){const c=getC(ym);$('ch').textContent='รายรับ �
 // โหมดดูอย่างเดียวจากลิงก์แชร์
 if(location.hash.startsWith('#share=')){try{const o=JSON.parse(decodeURIComponent(escape(atob(location.hash.slice(7)))));S={cfg:{},days:o.days,other:{},mcfg:{}};cur=new Date(o.ym+'-01');ro=true;$('fin').hidden=$('ed').hidden=true;document.querySelector('.card:last-child').hidden=true;$('st').textContent='โหมดดูอย่างเดียว'}catch(e){}}
 function save(){if(ro)return;localStorage.nr=JSON.stringify(S);clearTimeout(tm);if(S.cfg.url){$('st').textContent='รอซิงก์…';tm=setTimeout(push,1500)}}
-function calc(ym){const c=getC(ym),n={M:0,A:0,N:0,O:0,V:0};let otDays=0,ot=0;
+function calc(ym){const c=getC(ym),n={M:0,A:0,N:0,O:0,V:0,T:0,K:0};let otDays=0,ot=0;
  for(const k in S.days)if(k.startsWith(ym)){const d=S.days[k];for(const code of d.s||'')n[code]++;const rate=+(d.otAmount??d.ot)||0,days=+(d.otDays??(d.ot?1:0))||0;ot+=rate*days;otDays+=days}
  ot+=(+c.otRate||0)*(+c.otDaysMonth||0);otDays+=(+c.otDaysMonth||0);const sh=n.M*c.rM+n.A*c.rA+n.N*c.rN,fx=+c.base+ +c.lic+ +c.pos,
  ox=(S.other[ym]||[]).reduce((a,x)=>a+ +x.a,0);return{n,otDays,sh,ot,fx,ox,t:sh+ot+fx+ox}}
@@ -135,7 +135,7 @@ function render(){const ym=ymOf(cur),y=cur.getFullYear(),m=cur.getMonth(),first=
  $('g').innerHTML=h;
  document.querySelectorAll('.d').forEach(e=>{e.onclick=()=>{sel=e.dataset.k;ro?note():render();edit()};e.onkeydown=ev=>ev.key=='Enter'&&e.click()});
  if(ro)return;edit(true);
- const r=calc(ym);$('tt').innerHTML=[['เวรเช้า/บ่าย/ดึก/ออฟ/VAC',`${r.n.M}/${r.n.A}/${r.n.N}/${r.n.O}/${r.n.V} วัน`],['ค่าเวร',th(r.sh)],['OT '+r.otDays+' วัน',th(r.ot)],['เงินเดือน+ใบประกอบ+ตำแหน่ง',th(r.fx)],['รายรับอื่นๆ',th(r.ox)]].map(x=>`<div><b>${x[1]}</b><span>${x[0]}</span></div>`).join('')+`<div class="big"><b>${th(r.t)} บาท</b><span>รวมทั้งเดือน</span></div>`;
+ const r=calc(ym);$('tt').innerHTML=[['เวรเช้า/บ่าย/ดึก/ออฟ/VAC',`${r.n.M}/${r.n.A}/${r.n.N}/${r.n.O}/${r.n.V} วัน`],['อบรม / สอน',`${r.n.T} / ${r.n.K} วัน`],['ค่าเวร',th(r.sh)],['OT '+r.otDays+' วัน',th(r.ot)],['เงินเดือน+ใบประกอบ+ตำแหน่ง',th(r.fx)],['รายรับอื่นๆ',th(r.ox)]].map(x=>`<div><b>${x[1]}</b><span>${x[0]}</span></div>`).join('')+`<div class="big"><b>${th(r.t)} บาท</b><span>รวมทั้งเดือน</span></div>`;
  const ms=[];for(let i=5;i>=0;i--){const d=new Date(y,m-i,1);ms.push([ymOf(d),d.toLocaleDateString('th-TH',{month:'short'}),calc(ymOf(d))])}
  if(window.Chart){c1&&c1.destroy();c2&&c2.destroy();
  const ds=(l,f,c)=>({label:l,data:ms.map(x=>x[2][f]),backgroundColor:c});
@@ -146,7 +146,7 @@ function render(){const ym=ymOf(cur),y=cur.getFullYear(),m=cur.getMonth(),first=
 function note(){const v=S.days[sel]||{};alert(sel+'\nเวร: '+([...(v.s||'')].map(c=>NM[c]).join(' + ')||'-')+(+(v.otAmount??v.ot)?'\nOT '+(v.otAmount??v.ot)+' บาท/วัน × '+(v.otDays??(v.ot?1:0))+' วัน = '+((v.otAmount??v.ot)*(v.otDays??(v.ot?1:0)))+' บาท':'')+(v.n?'\n'+v.n:''))}
 function edit(keep){if(ro)return;const e=$('ed');if(!sel){e.hidden=true;return}e.hidden=false;if(keep===true&&e.dataset.k==sel)return;e.dataset.k=sel;
  const v=S.days[sel]||{};$('eh').textContent='วันที่ '+sel.split('-').reverse().join('/');
- $('sb').innerHTML=['M','A','N','O','V'].map(s=>`<button class="${(v.s||'').includes(s)?'p':''}" data-s="${s}">${L[s]} ${NM[s]}</button>`).join('')+'<button data-s="">ล้าง</button>';
+ $('sb').innerHTML=['M','A','N','O','V','T','K'].map(s=>`<button class="${(v.s||'').includes(s)?'p':''}" data-s="${s}">${L[s]} ${NM[s]}</button>`).join('')+'<button data-s="">ล้าง</button>';
  document.querySelectorAll('#sb button').forEach(b=>b.onclick=()=>{const x=b.dataset.s,cs=(S.days[sel]||{}).s||'';let n;if(x==='')n='';else if(x==='O'||x==='V')n=cs===x?'':x;else{n=cs.replace(/[OV]/g,'');n=n.includes(x)?n.replace(x,''):n+x}set({s:n});e.dataset.k='';render()});
  $('eo').value=v.otAmount??v.ot??'';$('eod').value=v.otDays??(v.ot?1:'');$('en').value=v.n||'';updateOTPreview()}
 function updateOTPreview(){const rate=Math.max(0,Number($('eo').value)||0),days=Math.max(0,Number($('eod').value)||0);$('otPreview').textContent=th(rate*days)+' บาท'}
